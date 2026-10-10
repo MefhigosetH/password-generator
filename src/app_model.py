@@ -1,9 +1,13 @@
 import random
 import string
-
+import logging
 
 class AppModel:
     _CHARACTERS = string.ascii_lowercase
+
+    def __init__(self) -> None:
+        logging.basicConfig(level=logging.INFO, format='%(asctime)s - %(name)s - %(levelname)s - %(message)s')
+        self.logger = logging.getLogger("AppModel")
 
     def generate_password(self, length: int, use_uppercase: bool, use_digits: bool, use_punctuation: bool) -> str:
         if not 1 <= length <= 128:
