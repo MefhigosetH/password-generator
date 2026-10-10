@@ -6,9 +6,10 @@ from app_controller import AppController
 def main(page: ft.Page):
     model = AppModel()
     view = AppView(page)
-    AppController(model, view)
+    controller = AppController(model, view)
 
     view.build_ui()
+    controller.handle_generate({})
 
 if __name__ == "__main__":
     ft.run(main)
