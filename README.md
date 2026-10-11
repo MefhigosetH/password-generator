@@ -74,3 +74,8 @@ Se requieren JDK 17 y Android SDK. La primera compilación puede descargar e ins
 4. Abre un pull request con un resumen del cambio y los pasos de verificación; para cambios de interfaz, incluye una captura de pantalla.
 
 Mantén los cambios de lógica, interfaz y eventos en sus módulos correspondientes. No añadas al control de versiones los artefactos generados en `build/`.
+
+## Reconocimientos
+
+- Icono de la app: https://www.pngegg.com/es/png-zkdmz
+- Idea original: Código Espinoza - https://www.youtube.com/watch?v=TSLBwro2z0k
