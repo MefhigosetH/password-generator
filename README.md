@@ -12,6 +12,8 @@ Aplicación de escritorio/móvil desarrollada en Python con [Flet](https://flet.
 
 La app sigue en desarrollo. El medidor de seguridad es actualmente fijo y no evalúa la contraseña. Además, el conjunto de caracteres puede conservar opciones que se activaron en generaciones anteriores. La generación usa el módulo estándar `random`, que no es criptográficamente seguro; no uses esta versión para crear contraseñas de cuentas sensibles.
 
+![screenshot.png](https://raw.githubusercontent.com/MefhigosetH/password-generator/master/screenshot.png)
+
 ## Requisitos
 
 - Python 3.12
