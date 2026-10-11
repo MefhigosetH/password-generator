@@ -3,7 +3,7 @@ import string
 import logging
 
 class AppModel:
-    _CHARACTERS = string.ascii_lowercase
+    _CHARACTERS = ""
 
     def __init__(self) -> None:
         logging.basicConfig(level=logging.INFO, format='%(asctime)s - %(name)s - %(levelname)s - %(message)s')
@@ -12,6 +12,8 @@ class AppModel:
     def generate_password(self, length: int, use_uppercase: bool, use_digits: bool, use_punctuation: bool) -> str:
         if not 1 <= length <= 128:
             raise ValueError("La longitud debe estar entre 1 y 128 caracteres.")
+
+        self._CHARACTERS = string.ascii_lowercase
 
         if use_uppercase:
             self._CHARACTERS += string.ascii_uppercase
