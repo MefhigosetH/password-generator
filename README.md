@@ -8,9 +8,9 @@ Aplicación de escritorio/móvil desarrollada en Python con [Flet](https://flet.
 - Permite ajustar la longitud entre 8 y 32 caracteres (12 por defecto).
 - Usa letras minúsculas y permite activar mayúsculas, números y símbolos.
 - Permite generar otra contraseña y copiarla al portapapeles.
-- Hay builds Android divididos por arquitectura en `src/build/apk/` (`arm64-v8a`, `armeabi-v7a` y `x86_64`). Los artefactos se generan localmente y no son necesarios para desarrollar.
+- Se generan builds Android divididos por arquitectura en `src/build/apk/` (`arm64-v8a`, `armeabi-v7a` y `x86_64`).
 
-La app sigue en desarrollo. El medidor de seguridad es actualmente fijo y no evalúa la contraseña. Además, el conjunto de caracteres puede conservar opciones que se activaron en generaciones anteriores. La generación usa el módulo estándar `random`, que no es criptográficamente seguro; no uses esta versión para crear contraseñas de cuentas sensibles.
+La app sigue en desarrollo. El medidor de seguridad es actualmente fijo y no evalúa la contraseña. Además, el conjunto de caracteres puede conservar opciones que se activaron en generaciones anteriores.
 
 ![screenshot.png](https://raw.githubusercontent.com/MefhigosetH/password-generator/master/screenshot.png)
 
@@ -22,17 +22,10 @@ La app sigue en desarrollo. El medidor de seguridad es actualmente fijo y no eva
 
 ## Preparar el entorno
 
-Desde la raíz del repositorio, instala Pipenv si aún no está disponible y prepara el entorno con las versiones del lockfile:
+Desde la raíz del repositorio, instala las dependencias necesarias:
 
 ```bash
-python -m pip install --user pipenv
-pipenv sync
-```
-
-El lockfile incluye Flet, pero no su CLI. Instala la CLI en el entorno del proyecto para poder ejecutar y compilar la app:
-
-```bash
-pipenv run pip install "flet[cli]==1.0.4"
+pipenv install
 ```
 
 ## Ejecutar en modo desarrollo
