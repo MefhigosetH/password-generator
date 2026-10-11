@@ -10,7 +10,7 @@ Aplicación de escritorio/móvil desarrollada en Python con [Flet](https://flet.
 - Permite generar otra contraseña y copiarla al portapapeles.
 - Se generan builds Android divididos por arquitectura en `src/build/apk/` (`arm64-v8a`, `armeabi-v7a` y `x86_64`).
 
-La app sigue en desarrollo. El medidor de seguridad es actualmente fijo y no evalúa la contraseña. Además, el conjunto de caracteres puede conservar opciones que se activaron en generaciones anteriores.
+La app sigue en desarrollo. El medidor de seguridad es actualmente fijo y no evalúa la contraseña.
 
 ![screenshot.png](https://raw.githubusercontent.com/MefhigosetH/password-generator/master/screenshot.png)
 
