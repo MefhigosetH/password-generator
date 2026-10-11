@@ -1,4 +1,4 @@
-import random
+import secrets
 import string
 import logging
 
@@ -23,4 +23,4 @@ class AppModel:
         if not self._CHARACTERS:
             raise ValueError("Debe seleccionar al menos un tipo de carácter.")
 
-        return "".join(random.choice(self._CHARACTERS) for _ in range(length))
+        return "".join(secrets.choice(self._CHARACTERS) for _ in range(length))
