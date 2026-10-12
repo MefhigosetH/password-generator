@@ -32,4 +32,5 @@ class AppController:
             self.view.show_error(str(error))
             return
 
-        self.view.show_password(password)
+        entropy = self.model.calcular_entropia(password)
+        self.view.show_password(password, entropy)

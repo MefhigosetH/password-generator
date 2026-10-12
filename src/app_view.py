@@ -30,8 +30,8 @@ class AppView:
 
         self.length_slider = ft.Slider(min=8, max=32, value=12, divisions=24, label="{value}", active_color=ft.Colors.BLUE_400, inactive_color=ft.Colors.GREY_800,)
         self.txt_length_number = ft.Text(str(self.length_slider.value), weight=ft.FontWeight.BOLD, size=16, color=ft.Colors.BLUE_400)
-        self.strength_bar = ft.ProgressBar(value=0.7, color=ft.Colors.GREEN_400, bgcolor=ft.Colors.GREY_800, expand=True)
-        self.strength_text = ft.Text("Seguridad: Fuerte", size=12, color=ft.Colors.GREEN_400)
+        self.strength_bar = ft.ProgressBar(value=0, color=ft.Colors.GREY_500, bgcolor=ft.Colors.GREY_800, expand=True)
+        self.strength_text = ft.Text("Seguridad: Sin evaluar", size=12, color=ft.Colors.GREY_400)
         self.generate_button = ft.FilledButton(
                                     content="Generar Contraseña",
                                     icon=ft.Icons.AUTO_AWESOME,
@@ -66,9 +66,27 @@ class AppView:
     def want_symbols(self) -> bool:
         return self.symbols_switch.value
 
-    def show_password(self, password: str) -> None:
+    def show_password(self, password: str, entropy: float) -> None:
         self.password_output.value = password
+        self.show_strength(entropy)
         self.page.update()
+
+    def show_strength(self, entropy: float) -> None:
+        if entropy < 28:
+            label, color = "Muy débil", ft.Colors.RED_400
+        elif entropy < 60:
+            label, color = "Débil", ft.Colors.ORANGE_400
+        elif entropy < 80:
+            label, color = "Media", ft.Colors.AMBER_400
+        elif entropy < 128:
+            label, color = "Alta", ft.Colors.LIGHT_BLUE_400
+        else:
+            label, color = "Muy alta", ft.Colors.GREEN_400
+
+        self.strength_bar.value = min(entropy / 128, 1)
+        self.strength_bar.color = color
+        self.strength_text.value = f"Seguridad: {label} ({entropy:.1f} bits)"
+        self.strength_text.color = color
 
     def show_message(self, message: str) -> None:
         self.page.show_dialog(ft.SnackBar(ft.Text(message)))

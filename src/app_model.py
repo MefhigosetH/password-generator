@@ -1,6 +1,7 @@
 import secrets
 import string
 import logging
+import math
 
 class AppModel:
     _CHARACTERS = ""
@@ -26,3 +27,24 @@ class AppModel:
             raise ValueError("Debe seleccionar al menos un tipo de carácter.")
 
         return "".join(secrets.choice(self._CHARACTERS) for _ in range(length))
+
+    def calcular_entropia(self, password: str) -> float:
+        if not password:
+            return 0
+            
+        # Definir el tamaño del pool de caracteres (R)
+        tiene_minusculas = any(c.islower() for c in password)
+        tiene_mayusculas = any(c.isupper() for c in password)
+        tiene_numeros = any(c.isdigit() for c in password)
+        tiene_especiales = any(not c.isalnum() for c in password)
+        
+        pool = 0
+        if tiene_minusculas: pool += 26
+        if tiene_mayusculas: pool += 26
+        if tiene_numeros: pool += 10
+        if tiene_especiales: pool += 33  # Caracteres especiales estándar ASCII
+        
+        longitud = len(password)
+        
+        # Calcular entropía: L * log2(R)
+        return longitud * math.log2(pool)

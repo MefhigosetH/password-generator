@@ -8,9 +8,10 @@ Aplicación de escritorio/móvil desarrollada en Python con [Flet](https://flet.
 - Permite ajustar la longitud entre 8 y 32 caracteres (12 por defecto).
 - Usa letras minúsculas y permite activar mayúsculas, números y símbolos.
 - Permite generar otra contraseña y copiarla al portapapeles.
+- Evalúa la fortaleza de cada clave con su entropía estimada.
 - Se generan builds Android divididos por arquitectura en `src/build/apk/` (`arm64-v8a`, `armeabi-v7a` y `x86_64`).
 
-La app sigue en desarrollo. El medidor de seguridad es actualmente fijo y no evalúa la contraseña.
+La app sigue en desarrollo.
 
 ![screenshot.png](https://raw.githubusercontent.com/MefhigosetH/password-generator/master/screenshot.png)
 
