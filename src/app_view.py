@@ -6,12 +6,11 @@ class AppView:
         """Inicializa la interfaz de usuario, los controles y su disposición."""
         self.page = page
         self.page.title = "Generador de Contraseñas"
-        self.page.vertical_alignment = ft.MainAxisAlignment.CENTER
         self.page.horizontal_alignment = ft.CrossAxisAlignment.CENTER
-        self.page.bgcolor = "#121214"
-        self.page.theme_mode = ft.ThemeMode.DARK
+        #self.page.bgcolor = ft.Colors.ON_PRIMARY
+        #self.page.theme_mode = ft.ThemeMode.DARK
         self.page.padding = 20
-        self.page.scroll = ft.ScrollMode.AUTO
+        #self.page.scroll = ft.ScrollMode.AUTO
 
         self.uppercase_switch = ft.Switch(value=False, active_color=ft.Colors.BLUE_400)
         self.numbers_switch = ft.Switch(value=False, active_color=ft.Colors.BLUE_400)
@@ -21,9 +20,9 @@ class AppView:
                                             border=ft.NoInputBorder(),
                                             text_style=ft.TextStyle(
                                                 font_family="monospace", 
-                                                size=32, 
-                                                weight=ft.FontWeight.BOLD,
-                                                color=ft.Colors.WHITE
+                                                size=34, 
+                                                #weight=ft.FontWeight.BOLD,
+                                                #color=ft.Colors.WHITE
                                             ),
                                             read_only=True,
                                             expand=True,)
@@ -39,20 +38,13 @@ class AppView:
                                     bgcolor=ft.Colors.BLUE_600,
                                     style=ft.ButtonStyle(
                                         shape=ft.RoundedRectangleBorder(radius=10),
-                                        padding=15
+                                        padding=20
                                     ),
-                                    width=360,
+                                    width=600,
                                 )
-        self.refresh_button = ft.IconButton(
-                                                icon=ft.Icons.REFRESH,
-                                                icon_color=ft.Colors.BLUE_400,
-                                                tooltip="Generar nueva",
-                                            )
-        self.copy_button = ft.IconButton(
-                                            icon=ft.Icons.COPY,
-                                            icon_color=ft.Colors.GREEN_400,
-                                            tooltip="Copiar",
-                                        )
+        self.refresh_button = ft.FilledButton(icon=ft.Icons.REFRESH, content="Generar", bgcolor=ft.Colors.LIGHT_BLUE_ACCENT_700, width=600, height=50)
+        self.copy_button = ft.IconButton(icon=ft.Icons.COPY, icon_color=ft.Colors.BLUE_400, tooltip="Copiar")
+        self.theme_button = ft.IconButton(icon=ft.Icons.DARK_MODE, icon_color=ft.Colors.BLUE_400, on_click=self.toogle_theme)
 
     def get_password_length(self) -> int:
         return int(self.length_slider.value)
@@ -101,86 +93,50 @@ class AppView:
         self.length_slider.error_text = message
         self.page.update()
 
+    def toogle_theme(self):
+        self.theme_button.icon = ft.Icons.DARK_MODE if self.page.theme_mode == ft.ThemeMode.LIGHT else ft.Icons.LIGHT_MODE
+        self.page.theme_mode = ft.ThemeMode.DARK if self.page.theme_mode == ft.ThemeMode.LIGHT else ft.ThemeMode.LIGHT
+        self.page.update()
+
     def build_ui(self):
-        # Estructura principal centrada (ideal para móviles / escritorio)
+        headerRow = ft.Container(
+                        content = ft.Row(
+                        controls=[
+                            ft.Icon(ft.Icons.LOCK_OUTLINE, color=ft.Colors.BLUE_400, size=24),
+                            ft.Text("Generador de Contraseñas", size=24, weight=ft.FontWeight.BOLD, expand=True),
+                            self.theme_button,
+                        ],
+                        alignment=ft.MainAxisAlignment.START,
+                        ),
+                        padding=ft.Padding(left=0, top=0, right=0, bottom=20),
+                    )
+
+        passwordRow = ft.Card(
+                        content=ft.Column([
+                                ft.Text("CONTRASEÑA GENERADA", size=12, weight=ft.FontWeight.BOLD),
+                                ft.Row([
+                                    self.password_output,
+                                    self.copy_button
+                                ],
+                                alignment=ft.MainAxisAlignment.CENTER,
+                                spacing=10),
+                                ft.Divider(height=20),
+                                ft.Row([self.strength_bar, self.strength_text]),
+                            ],
+                            margin=20),
+                        bgcolor=ft.Colors.ON_SECONDARY,
+                    )
+
+        generateRow = ft.Container(
+                        content=self.generate_button,
+                        padding=ft.Padding(left=0, top=10, right=0, bottom=10),
+                    )
+
         self.page.add(
             ft.SafeArea(
-                ft.Container(
-                    padding=20,
-                    border_radius=20,
-                    bgcolor="#18181b",
-                    shadow=ft.BoxShadow(spread_radius=1, blur_radius=15, color=ft.Colors.BLACK_54),
-                    content=ft.Column(
-                        [
-                            # Título
-                            ft.Row(
-                                [
-                                    ft.Icon(ft.Icons.LOCK_OUTLINE, color=ft.Colors.BLUE_400, size=24),
-                                    ft.Text("Generador de Contraseñas", size=20, weight=ft.FontWeight.BOLD, color=ft.Colors.WHITE)
-                                ],
-                                alignment=ft.MainAxisAlignment.START,
-                            ),
-
-                            ft.Divider(color=ft.Colors.GREY_800),
-                            
-                            # Caja de Contraseña Generada con Acciones Rápidas
-                            ft.Row(
-                                [
-                                    self.password_output,
-                                    self.refresh_button,
-                                    self.copy_button,
-                                ],
-                            ),
-
-                            # Medidor de fuerza
-                            ft.Column([
-                                ft.Row([self.strength_text], alignment=ft.MainAxisAlignment.END),
-                                self.strength_bar
-                            ], spacing=4),
-                            
-                            ft.Divider(color=ft.Colors.GREY_800),
-                            
-                            # Sección de Opciones
-                            ft.Text("Opciones de Configuración", size=14, weight=ft.FontWeight.W_500, color=ft.Colors.GREY_400),
-                            
-                            ft.Container(
-                                padding=10,
-                                border_radius=12,
-                                bgcolor="#202024",
-                                content=ft.Column([
-                                    ft.Row([
-                                        ft.Row([ft.Icon(ft.Icons.TEXT_FIELDS, size=18, color=ft.Colors.GREY_400), ft.Text("Incluir mayúsculas", color=ft.Colors.WHITE)]),
-                                        self.uppercase_switch
-                                    ], alignment=ft.MainAxisAlignment.SPACE_BETWEEN),
-                                    
-                                    ft.Row([
-                                        ft.Row([ft.Icon(ft.Icons.SIXTY_FPS_OUTLINED, size=18, color=ft.Colors.GREY_400), ft.Text("Incluir números", color=ft.Colors.WHITE)]),
-                                        self.numbers_switch
-                                    ], alignment=ft.MainAxisAlignment.SPACE_BETWEEN),
-                                    
-                                    ft.Row([
-                                        ft.Row([ft.Icon(ft.Icons.TAG, size=18, color=ft.Colors.GREY_400), ft.Text("Incluir símbolos", color=ft.Colors.WHITE)]),
-                                        self.symbols_switch
-                                    ], alignment=ft.MainAxisAlignment.SPACE_BETWEEN),
-                                ])
-                            ),
-
-                            # Sección de Longitud
-                            ft.Row([
-                                ft.Text("Longitud de caracteres", size=14, weight=ft.FontWeight.W_500, color=ft.Colors.GREY_400),
-                                self.txt_length_number
-                            ], alignment=ft.MainAxisAlignment.SPACE_BETWEEN),
-                            
-                            self.length_slider,
-
-                            ft.VerticalDivider(),
-
-                            # Botón Principal de Acción
-                            #self.generate_button
-                        ],
-                        #tight=True,
-                        spacing=15
-                    ),
-                ),
+                ft.Column(
+                    controls=[headerRow, passwordRow, generateRow],
+                    horizontal_alignment=ft.CrossAxisAlignment.CENTER,
+                )
             )
         )
