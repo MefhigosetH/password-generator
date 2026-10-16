@@ -7,10 +7,7 @@ class AppView:
         self.page = page
         self.page.title = "Generador de Contraseñas"
         self.page.horizontal_alignment = ft.CrossAxisAlignment.CENTER
-        #self.page.bgcolor = ft.Colors.ON_PRIMARY
-        #self.page.theme_mode = ft.ThemeMode.DARK
         self.page.padding = 20
-        #self.page.scroll = ft.ScrollMode.AUTO
 
         self.uppercase_switch = ft.Switch(value=False, active_color=ft.Colors.BLUE_400)
         self.numbers_switch = ft.Switch(value=False, active_color=ft.Colors.BLUE_400)
@@ -20,11 +17,12 @@ class AppView:
                                             border=ft.NoInputBorder(),
                                             text_style=ft.TextStyle(
                                                 font_family="monospace", 
-                                                size=34, 
-                                                #weight=ft.FontWeight.BOLD,
-                                                #color=ft.Colors.WHITE
+                                                size=28,
+                                                color=ft.Colors.ON_SECONDARY_CONTAINER,
+                                                weight=ft.FontWeight.BOLD
                                             ),
                                             read_only=True,
+                                            multiline=True,
                                             expand=True,)
 
         self.length_slider = ft.Slider(min=8, max=32, value=12, divisions=24, label="{value}", active_color=ft.Colors.BLUE_400, inactive_color=ft.Colors.GREY_800,)
@@ -43,7 +41,7 @@ class AppView:
                                     width=600,
                                 )
         self.refresh_button = ft.FilledButton(icon=ft.Icons.REFRESH, content="Generar", bgcolor=ft.Colors.LIGHT_BLUE_ACCENT_700, width=600, height=50)
-        self.copy_button = ft.IconButton(icon=ft.Icons.COPY, icon_color=ft.Colors.BLUE_400, tooltip="Copiar")
+        self.copy_button = ft.IconButton(icon=ft.Icons.COPY, icon_color=ft.Colors.SECONDARY, tooltip="Copiar")
         self.theme_button = ft.IconButton(icon=ft.Icons.DARK_MODE, icon_color=ft.Colors.BLUE_400, on_click=self.toogle_theme)
 
     def get_password_length(self) -> int:
@@ -113,7 +111,7 @@ class AppView:
 
         passwordRow = ft.Card(
                         content=ft.Column([
-                                ft.Text("CONTRASEÑA GENERADA", size=12, weight=ft.FontWeight.BOLD),
+                                ft.Text("CONTRASEÑA GENERADA", size=11, weight=ft.FontWeight.BOLD, color=ft.Colors.SECONDARY),
                                 ft.Row([
                                     self.password_output,
                                     self.copy_button
@@ -132,10 +130,32 @@ class AppView:
                         padding=ft.Padding(left=0, top=10, right=0, bottom=10),
                     )
 
+        lengthRow = ft.Card(
+            content=ft.Column([
+                ft.Row(
+                    controls=[
+                        ft.Text("LONGITUD DE LA CONTRASEÑA", size=11, weight=ft.FontWeight.BOLD, color=ft.Colors.SECONDARY, expand=True),
+                        self.txt_length_number
+                    ],
+                    spacing=10
+                ),
+                self.length_slider,
+                ft.Row(
+                    controls=[
+                        ft.Text("MIN: 8", size=11, weight=ft.FontWeight.BOLD, color=ft.Colors.SECONDARY, expand=True),
+                        ft.Text("MAX: 32", size=11, weight=ft.FontWeight.BOLD, color=ft.Colors.SECONDARY)
+                    ],
+                    spacing=10
+                ),
+            ],
+            margin=20),
+            bgcolor=ft.Colors.ON_SECONDARY,
+        )
+
         self.page.add(
             ft.SafeArea(
                 ft.Column(
-                    controls=[headerRow, passwordRow, generateRow],
+                    controls=[headerRow, passwordRow, generateRow, lengthRow],
                     horizontal_alignment=ft.CrossAxisAlignment.CENTER,
                 )
             )
