@@ -23,7 +23,7 @@ class AppController:
     def handle_generate(self, _: object) -> None:
         try:
             length = self.view.get_password_length()
-            self.view.txt_length_number.value = str(length)
+            self.view.show_length(length)
             password = self.model.generate_password(length,
                                                     self.view.want_uppercase(),
                                                     self.view.want_numbers(),
