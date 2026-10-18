@@ -193,9 +193,10 @@ class AppView:
 
         self.page.add(
             ft.SafeArea(
-                ft.Column(
+                content=ft.Column(
                     controls=[headerRow, passwordRow, generateRow, lengthRow, optRows],
                     horizontal_alignment=ft.CrossAxisAlignment.CENTER,
-                )
+                ),
+                expand=True,
             )
         )
