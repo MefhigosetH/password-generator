@@ -1,0 +1,2 @@
+#!/usr/bin/env bash
+exec "/home/victor/.local/share/virtualenvs/password-generator-ZWsDQxu9/bin/fleting" "$@"

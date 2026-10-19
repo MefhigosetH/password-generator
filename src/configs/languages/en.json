@@ -1,0 +1,17 @@
+{
+  "app": {
+    "name": "Src"
+  },
+  "menu": {
+    "home": "Home",
+    "settings": "Configs",
+    "help": "Help"
+  },
+  "home": {
+    "title": "Wellcome to Src"
+  },
+  "settings": {
+    "title": "Configs",
+    "language": "Language"
+  }
+}

@@ -1,0 +1,21 @@
+[project]
+name = "password_generator"
+version = "0.3.0"
+description = "Generador de contraseñas aleatorias para móviles"
+
+[tool.flet]
+org = "local.mefhigoseth"
+product = "Generador Contraseñas" 
+
+[tool.flet.icons]
+android = "assets/icon.png"
+
+[tool.flet.splash]
+color = "#ffffff"                # Color de fondo de carga en modo claro
+dark_color = "#121212"           # Color de fondo de carga en modo oscuro
+android_gravity = "center"       # Posición del logo (center, fill, etc.)
+hide_animation = true            # Oculta el spinner circular por defecto de Flet
+
+[tool.flet.android]
+# Fondo del icono adaptativo para evitar bordes negros en Android modernos
+adaptive_icon_background = "#ffffff" 

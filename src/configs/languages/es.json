@@ -1,0 +1,16 @@
+{
+  "app": {
+    "name": "Generador de Contraseñas"
+  },
+  "menu": {
+    "home": "Inicio",
+    "help": "Ayuda"
+  },
+  "home": {
+    "title": "Generador de Contraseñas"
+  },
+  "settings": {
+    "title": "Configuración",
+    "language": "Idioma"
+  }
+}

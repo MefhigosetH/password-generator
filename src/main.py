@@ -1,15 +1,34 @@
+
 import flet as ft
-from app_model import AppModel
-from app_view import AppView
-from app_controller import AppController
+from configs.app_config import AppConfig
+from core.logger import get_logger
+from core.error_handler import GlobalErrorHandler
+import runtime_imports 
+
+logger = get_logger("App")
 
 def main(page: ft.Page):
-    model = AppModel()
-    view = AppView(page)
-    controller = AppController(model, view)
+    try:
+        page.assets_dir = "assets"
 
-    view.build_ui()
-    controller.handle_generate({})
+        if page.platform in (ft.PagePlatform.WINDOWS, ft.PagePlatform.LINUX, ft.PagePlatform.MACOS):
+            from core.app import FletingApp
+            page.window.width = AppConfig.DEFAULT_SCREEN["width"]
+            page.window.height = AppConfig.DEFAULT_SCREEN["height"]
 
-if __name__ == "__main__":
-    ft.run(main)
+        from core.i18n import I18n
+        I18n.load("es")
+
+        from core.router import Router
+        from configs.routes import routes
+
+        router = Router(page)
+        router.navigate("/")
+
+        logger.info("Aplicación iniciada correctamente.")
+        
+    except Exception as e:
+        GlobalErrorHandler.handle(page, e)
+
+ft.run(main)
+
