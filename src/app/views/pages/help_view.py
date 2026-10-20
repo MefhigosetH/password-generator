@@ -12,7 +12,7 @@ class HelpView:
         self.url_launcher = UrlLauncher()
     
     async def open_docs(self, e):
-        await self.url_launcher.launch_url("https://github.com/alexyucra/Fleting")
+        await self.url_launcher.launch_url("https://github.com/mefhigoseth/Fleting")
 
     async def open_issues(self, e):
         await self.url_launcher.launch_url("https://github.com/alexyucra/fleting/issues")
@@ -37,7 +37,7 @@ class HelpView:
                 ),
 
                 ft.Text(
-                    "Gratis, transparante y de código fuente abierto.",
+                    "Seguro, transparante y de código fuente abierto.",
                     size=18,
                     weight=ft.FontWeight.W_500,
                 ),
@@ -50,21 +50,15 @@ class HelpView:
                 ft.Divider(),
 
                 ft.Button(
-                    "📘 Documentação Oficial",
-                    icon=ft.Icons.MENU_BOOK,
+                    "Documentación oficial",
+                    icon=ft.Icons.CODE,
                     on_click=self.open_docs,
                 ),
 
                 ft.Button(
-                    "🐛 Reportar um problema",
+                    "Reportar un problema",
                     icon=ft.Icons.BUG_REPORT,
                     on_click=self.open_issues,
-                ),
-
-                ft.Button(
-                    "💬 Precisa de uma automação ou Sistema?",
-                    icon=ft.Icons.BUG_REPORT,
-                    on_click=self.open_support,
                 ),
             ],
             horizontal_alignment=ft.CrossAxisAlignment.CENTER
