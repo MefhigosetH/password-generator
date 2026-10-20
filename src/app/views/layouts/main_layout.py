@@ -17,7 +17,7 @@ class MainLayout(ft.Column):
         self.controls.clear()
 
         # TOP BAR
-        self.controls.append(self._top_bar())
+        #self.controls.append(self._top_bar())
 
         # CONTENT
         self.controls.append(
