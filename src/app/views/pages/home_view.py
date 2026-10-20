@@ -1,15 +1,17 @@
 
 import flet as ft
 from app.views.layouts.main_layout import MainLayout
+from app.controllers.home_controller import HomeController
 
 class HomeView:
     def __init__(self, page, router):
         self.page = page
         self.router = router
+        self.controller = HomeController()
 
-        self.uppercase_switch = ft.Switch(value=False, active_color=ft.Colors.BLUE_400)
-        self.numbers_switch = ft.Switch(value=False, active_color=ft.Colors.BLUE_400)
-        self.symbols_switch = ft.Switch(value=False, active_color=ft.Colors.BLUE_400)
+        self.uppercase_switch = ft.Switch(value=False, active_color=ft.Colors.BLUE_400, on_change=self.handle_generate)
+        self.numbers_switch = ft.Switch(value=False, active_color=ft.Colors.BLUE_400, on_change=self.handle_generate)
+        self.symbols_switch = ft.Switch(value=False, active_color=ft.Colors.BLUE_400, on_change=self.handle_generate)
 
         self.password_output = ft.TextField(value="",
                                             border=ft.NoInputBorder(),
@@ -23,13 +25,22 @@ class HomeView:
                                             multiline=True,
                                             expand=True,)
 
-        self.length_slider = ft.Slider(min=8, max=32, value=12, divisions=24, label="{value}", active_color=ft.Colors.BLUE_400, inactive_color=ft.Colors.GREY_800,)
+        self.length_slider = ft.Slider(min=8,
+                                       max=32,
+                                       value=12,
+                                       divisions=24,
+                                       label="{value}",
+                                       active_color=ft.Colors.BLUE_400,
+                                       inactive_color=ft.Colors.GREY_800,
+                                       on_change=self.handle_generate)
+        
         self.txt_length_number = ft.Chip(label=str(self.length_slider.value))
         self.strength_bar = ft.ProgressBar(value=0, color=ft.Colors.GREY_500, bgcolor=ft.Colors.GREY_800, expand=True)
         self.entropy = ft.Chip(label="Entropía: 0 bits")
         self.strength_text = ft.Chip(label="Seguridad: Sin evaluar")
         self.generate_button = ft.FilledButton(
                                     content="Generar Contraseña",
+                                    on_click=self.handle_generate,
                                     icon=ft.Icons.AUTO_AWESOME,
                                     color=ft.Colors.WHITE,
                                     bgcolor=ft.Colors.BLUE_600,
@@ -40,11 +51,26 @@ class HomeView:
                                     width=600,
                                 )
         self.refresh_button = ft.FilledButton(icon=ft.Icons.REFRESH, content="Generar", bgcolor=ft.Colors.LIGHT_BLUE_ACCENT_700, width=600, height=50)
-        self.copy_button = ft.IconButton(icon=ft.Icons.COPY, icon_color=ft.Colors.SECONDARY, tooltip="Copiar")
+        self.copy_button = ft.IconButton(icon=ft.Icons.COPY, icon_color=ft.Colors.SECONDARY, tooltip="Copiar", on_click=self.copy_to_clipboard)
         self.theme_button = ft.IconButton(icon=ft.Icons.DARK_MODE, icon_color=ft.Colors.BLUE_400, on_click=self.toogle_theme)
 
 
 
+    def handle_generate(self) -> None:
+        try:
+            length = self.get_password_length()
+            self.show_length(length)
+            password = self.controller.generate_password(length,
+                                                    self.want_uppercase(),
+                                                    self.want_numbers(),
+                                                    self.want_symbols())
+        except ValueError as error:
+            self.show_error(str(error))
+            return
+
+        entropy = self.controller.calcular_entropia(password)
+        self.show_password(password, entropy)
+    
     def get_password_length(self) -> int:
         return int(self.length_slider.value)
 

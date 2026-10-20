@@ -26,21 +26,24 @@ class HelpView:
         content = ft.Column(
             spacing=24,
             controls=[
+                ft.Image(
+                    src="icon.png",
+                    width=144
+                ),
                 ft.Text(
-                    self.controller.get_title(),
+                    "Generador de contraseñas",
                     size=28,
                     weight=ft.FontWeight.BOLD,
                 ),
 
                 ft.Text(
-                    "Precisa de ajuda com o Fleting?",
+                    "Gratis, transparante y de código fuente abierto.",
                     size=18,
                     weight=ft.FontWeight.W_500,
                 ),
 
                 ft.Text(
-                    "Aqui você encontra links úteis para documentação, "
-                    "suporte e contribuição com o projeto.",
+                    "Desarrollado por Victor Villarreal <mefhigoseth@gmail.com>",
                     color=ft.Colors.GREY_600,
                 ),
 
@@ -64,6 +67,7 @@ class HelpView:
                     on_click=self.open_support,
                 ),
             ],
+            horizontal_alignment=ft.CrossAxisAlignment.CENTER
         )
 
         return MainLayout(
