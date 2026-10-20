@@ -37,6 +37,7 @@ class HelpView:
                 ),
 
                 ft.Text(
+                    "Generador de contraseñas aleatorias para móviles. "
                     "Seguro, transparante y de código fuente abierto.",
                     size=18,
                     weight=ft.FontWeight.W_500,
