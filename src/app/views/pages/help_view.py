@@ -44,6 +44,7 @@ class HelpView:
                 ft.Text(
                     "Desarrollado por Victor Villarreal <mefhigoseth@gmail.com>",
                     color=ft.Colors.GREY_600,
+                    text_align=ft.TextAlign.CENTER
                 ),
 
                 ft.Divider(),
@@ -60,7 +61,8 @@ class HelpView:
                     on_click=self.open_issues,
                 ),
             ],
-            horizontal_alignment=ft.CrossAxisAlignment.CENTER
+            alignment=ft.MainAxisAlignment.CENTER,
+            horizontal_alignment=ft.CrossAxisAlignment.CENTER,
         )
 
         return MainLayout(

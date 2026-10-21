@@ -36,10 +36,10 @@ class HomeView:
                                        inactive_color=ft.Colors.GREY_800,
                                        on_change=self.handle_generate)
         
-        self.txt_length_number = ft.Chip(label=str(self.length_slider.value), label_text_style=ft.TextStyle(color=ft.Colors.BLACK), selected=False)
+        self.txt_length_number = ft.Text(value=str(self.length_slider.value), size=14, weight=ft.FontWeight.BOLD)
         self.strength_bar = ft.ProgressBar(value=0, color=ft.Colors.GREY_500, bgcolor=ft.Colors.GREY_800, expand=True)
-        self.entropy = ft.Chip(label="Entropía: 0 bits", label_text_style=ft.TextStyle(color=ft.Colors.BLACK))
-        self.strength_text = ft.Chip(label="-", label_text_style=ft.TextStyle(color=ft.Colors.BLACK))
+        self.entropy = ft.Text(value="Entropía: 0 bits", size=14, weight=ft.FontWeight.BOLD)
+        self.strength_text = ft.Text(value="-", size=14, weight=ft.FontWeight.BOLD)
         self.generate_button = ft.FilledButton(
                                     content="Generar Contraseña",
                                     on_click=self.handle_generate,
@@ -91,7 +91,7 @@ class HomeView:
         self.page.update()
 
     def show_length(self, length: int) -> None:
-        self.txt_length_number.label = str(length)
+        self.txt_length_number.value = str(length)
         self.page.update()
 
     def show_strength(self, entropy: float) -> None:
@@ -109,10 +109,10 @@ class HomeView:
         self.strength_bar.value = min(entropy / 128, 1)
         self.strength_bar.color = color
 
-        self.strength_text.label = f"{label}"
+        self.strength_text.value = f"{label}"
         self.strength_text.color = color
 
-        self.entropy.label = f"Entropía: {entropy:.1f} bits"
+        self.entropy.value = f"Entropía: {entropy:.1f} bits"
         self.entropy.color = color
 
         self.txt_length_number.color = color
