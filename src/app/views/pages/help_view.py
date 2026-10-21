@@ -12,13 +12,10 @@ class HelpView:
         self.url_launcher = UrlLauncher()
     
     async def open_docs(self, e):
-        await self.url_launcher.launch_url("https://github.com/mefhigoseth/Fleting")
+        await self.url_launcher.launch_url("https://github.com/MefhigosetH/password-generator")
 
     async def open_issues(self, e):
-        await self.url_launcher.launch_url("https://github.com/alexyucra/fleting/issues")
-
-    async def open_support(self, e):
-        await self.url_launcher.launch_url("https://alexyucra.github.io/#contato")
+        await self.url_launcher.launch_url("https://github.com/MefhigosetH/password-generator/issues")
 
     def render(self):
         
@@ -41,6 +38,7 @@ class HelpView:
                     "Seguro, transparante y de código fuente abierto.",
                     size=18,
                     weight=ft.FontWeight.W_500,
+                    text_align=ft.TextAlign.CENTER
                 ),
 
                 ft.Text(

@@ -22,6 +22,8 @@ class HomeView:
                                                 weight=ft.FontWeight.BOLD
                                             ),
                                             read_only=True,
+                                            password=True,
+                                            can_reveal_password=True,
                                             multiline=True,
                                             expand=True,)
 
@@ -34,10 +36,10 @@ class HomeView:
                                        inactive_color=ft.Colors.GREY_800,
                                        on_change=self.handle_generate)
         
-        self.txt_length_number = ft.Chip(label=str(self.length_slider.value))
+        self.txt_length_number = ft.Chip(label=str(self.length_slider.value), label_text_style=ft.TextStyle(color=ft.Colors.BLACK), selected=False)
         self.strength_bar = ft.ProgressBar(value=0, color=ft.Colors.GREY_500, bgcolor=ft.Colors.GREY_800, expand=True)
-        self.entropy = ft.Chip(label="Entropía: 0 bits")
-        self.strength_text = ft.Chip(label="Seguridad: Sin evaluar")
+        self.entropy = ft.Chip(label="Entropía: 0 bits", label_text_style=ft.TextStyle(color=ft.Colors.BLACK))
+        self.strength_text = ft.Chip(label="-", label_text_style=ft.TextStyle(color=ft.Colors.BLACK))
         self.generate_button = ft.FilledButton(
                                     content="Generar Contraseña",
                                     on_click=self.handle_generate,
@@ -145,7 +147,7 @@ class HomeView:
                         ],
                         alignment=ft.MainAxisAlignment.START,
                         ),
-                        padding=ft.Padding(left=0, top=0, right=0, bottom=20),
+                        #padding=ft.Padding(left=0, top=0, right=0, bottom=10),
                     )
 
         passwordRow = ft.Card(
@@ -163,16 +165,16 @@ class HomeView:
                                     ],
                                     alignment=ft.MainAxisAlignment.CENTER,
                                     spacing=10),
-                                ft.Divider(height=20, thickness=0.5),
+                                ft.Divider(height=10, thickness=0.5),
                                 ft.Row([self.strength_text, self.strength_bar]),
                             ],
-                            margin=20),
+                            margin=10),
                         bgcolor=ft.Colors.ON_SECONDARY,
                     )
 
         generateRow = ft.Container(
                         content=self.generate_button,
-                        padding=ft.Padding(left=0, top=10, right=0, bottom=10),
+                        padding=ft.Padding(left=0, top=5, right=0, bottom=5),
                     )
 
         lengthRow = ft.Card(
@@ -193,7 +195,7 @@ class HomeView:
                     spacing=10
                 ),
             ],
-            margin=20),
+            margin=10),
             bgcolor=ft.Colors.ON_SECONDARY,
         )
 

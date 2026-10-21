@@ -21,16 +21,15 @@ class MainLayout(ft.Column):
 
         # CONTENT
         self.controls.append(
-            ft.Container(
+            ft.SafeArea(
                 content=self.content,
                 expand=True,
-                padding=0,
             )
         )
 
         # BOTTOM BAR (mobile / tablet)
         if AppState.device != "desktop":
-            self.controls.append(self._bottom_bar())
+            self._page.navigation_bar = self._bottom_bar()
 
     # ---------- TOP BAR ----------
     def _top_bar(self):
